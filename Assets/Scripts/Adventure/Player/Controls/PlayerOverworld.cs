@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class PlayerOverworld : MonoBehaviour
 {
-    public Rigidbody2D playerRigid;
+    public Rigidbody playerRigid;
 
     public float moveSpeed = 6f;
 
     void Start()
     {
-        playerRigid = GetComponent<Rigidbody2D>();
+        playerRigid = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        Vector2 overWorldHeading = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector3 overWorldHeading = new Vector3(Input.GetAxis("Horizontal"),0, Input.GetAxis("Vertical"));
 
-        playerRigid.AddForce(overWorldHeading * (moveSpeed * Time.deltaTime));
+        //playerRigid.AddForce(overWorldHeading * (moveSpeed * Time.deltaTime));
+        this.transform.Translate(overWorldHeading * moveSpeed * Time.deltaTime);
 
-        if(overWorldHeading == Vector2.zero)
+        if(overWorldHeading == Vector3.zero)
         {
             playerRigid.velocity = Vector3.zero;
-            playerRigid.angularVelocity = 0;
+            playerRigid.angularVelocity = Vector3.zero;
         }
     }
 }

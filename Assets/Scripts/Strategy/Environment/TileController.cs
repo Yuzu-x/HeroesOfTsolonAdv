@@ -8,6 +8,7 @@ public class TileController : MonoBehaviour
     public bool targetTile = false;
     public bool selectableTile = false;
     public bool walkableTile = true;
+    public bool playerSpawnTile = false;
 
     public List<TileController> adjacentTileList = new List<TileController>();
 

@@ -63,6 +63,9 @@ public class EnemyController : CharacterController
                 currentState = TurnState.MOVING;
             }
         }
+
+        //actionPointImage.fillAmount = currentActionPoints / maximumActionPoints;
+        //healthImage.fillAmount = currentHealth / maximumHealth;
     }
 
     void CalculatePath()
@@ -77,23 +80,40 @@ public class EnemyController : CharacterController
         GameObject nearest = null;
         float distance = Mathf.Infinity;
 
-        foreach(GameObject player in targets)
+        if (target == null)
         {
-            float currentDistance = Vector3.Distance(transform.position, player.transform.position);
-
-            if(currentDistance < distance)
+            foreach (GameObject player in targets)
             {
-                distance = currentDistance;
-                nearest = player;
+                PlayerCharacter pChara = player.GetComponent<PlayerCharacter>();
+
+                if (pChara.hasTaunted)
+                {
+                    target = player;
+                }
+            }
+
+            if (target == null)
+            {
+                foreach (GameObject player in targets)
+                {
+                    float currentDistance = Vector3.Distance(transform.position, player.transform.position);
+
+                    if (currentDistance < distance)
+                    {
+                        distance = currentDistance;
+                        nearest = player;
+                    }
+
+                    target = nearest;
+                }
             }
         }
-        target = nearest;
     }
 
     void EnemyMovement()
     {
         if(!isMoving)
-        {
+        { 
             FindNearestTarget();
             CalculatePath();
             FindSelectableTiles();
@@ -111,18 +131,22 @@ public class EnemyController : CharacterController
     {
         if(currentActionPoints <= 0)
         {
+            BasicAttack();
             turnManager.FinishTurn();
             gameObject.tag = "Enemy";
             turnManager.enemyTurn = false;
             turnManager.playerTurn = true;
+            target = null;
         }
 
         if(moveActionsThisTurn > 0)
         {
+            BasicAttack();
             turnManager.FinishTurn();
             gameObject.tag = "Enemy";
             turnManager.enemyTurn = false;
             turnManager.playerTurn = true;
+            target = null;
         }
     }
 }

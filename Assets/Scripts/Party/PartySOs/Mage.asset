@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a756c5e3bc5cae948be172616f895075, type: 3}
+  m_Name: Mage
+  m_EditorClassIdentifier: 
+  memberClass: Mage
+  classSO: {fileID: 11400000, guid: c3b3d9f3285c47e4d944302f92e97115, type: 2}
+  memberLevel: 0
+  strategyPiece: {fileID: 1081488779363115600, guid: bec0f67909238784dbab148adde3bfb9,
+    type: 3}
+  partyMenuPiece: {fileID: 0}
+  overworldPiece: {fileID: 0}

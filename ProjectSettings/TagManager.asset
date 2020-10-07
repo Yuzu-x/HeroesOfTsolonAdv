@@ -7,6 +7,22 @@ TagManager:
   - ActivePlayer
   - Tile
   - Enemy
+  - PartySlot
+  - RecruitTab
+  - PlayerHealth
+  - PlayerActions
+  - UIPartyPanel
+  - Hired
+  - PartyHandPiece
+  - PlayerSpawn
+  - PartyHandPanel
+  - CharInHand
+  - LogoImage
+  - MoveButton
+  - RunButton
+  - EndTurnButton
+  - SpellPanel
+  - FocusTree
   layers:
   - Default
   - TransparentFX

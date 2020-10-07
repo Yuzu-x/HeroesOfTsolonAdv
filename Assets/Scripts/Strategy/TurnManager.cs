@@ -13,6 +13,7 @@ public class TurnManager : MonoBehaviour
     public Text turnCountText;
 
     public float coinFlip = 3;
+    public bool currentlyTurnZero = true;
 
     public bool playerTurn = false;
     public bool enemyTurn = false;
@@ -24,25 +25,14 @@ public class TurnManager : MonoBehaviour
 
     void Update()
     {
-        if(turnTeam.Count == 0)
+        if (!currentlyTurnZero)
         {
-            if (coinFlip == 3)
+            if (turnTeam.Count == 0)
             {
-                coinFlip = Random.Range(0, 2);
-            }
-            if(coinFlip == 1)
-            {
-                playerTurn = true;
-                enemyTurn = false;
-            }
-            else
-            {
-                enemyTurn = true;
-                playerTurn = false;
-            }
                 InitTeamTurnQueue();
+            }
+            TurnCountUpdate();
         }
-        TurnCountUpdate();
     }
 
     void InitTeamTurnQueue()
@@ -60,8 +50,9 @@ public class TurnManager : MonoBehaviour
     {
         foreach(CharacterController character in turnTeam)
         {
-            character.currentActionPoints = character.maximumActionPoints;
+            character.currentActionPoints = character.restoredActionPoints;
             character.moveActionsThisTurn = 0f;
+            character.restoredActionPoints = character.maximumActionPoints;
         }
 
         if(turnTeam.Count > 0)

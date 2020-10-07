@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a756c5e3bc5cae948be172616f895075, type: 3}
+  m_Name: Tamer
+  m_EditorClassIdentifier: 
+  memberClass: Tamer
+  classSO: {fileID: 11400000, guid: e8917ca1e09e29c41b6db4ab25c0b011, type: 2}
+  memberLevel: 0
+  strategyPiece: {fileID: 1081488779363115600, guid: 68614eef4fc2649468289ac1ce67e890,
+    type: 3}
+  partyMenuPiece: {fileID: 0}
+  overworldPiece: {fileID: 0}

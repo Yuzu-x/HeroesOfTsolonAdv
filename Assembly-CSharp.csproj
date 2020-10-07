@@ -64,7 +64,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Adventure\Player\Controls\PlayerOverworld.cs" />
+    <Compile Include="Assets\Scripts\Menus\In-Game\AudioMenu.cs" />
+    <Compile Include="Assets\Scripts\Menus\In-Game\OptionsController.cs" />
+    <Compile Include="Assets\Scripts\Party\CharacterLevelling.cs" />
+    <Compile Include="Assets\Scripts\Party\FocusPathButton.cs" />
+    <Compile Include="Assets\Scripts\Party\GenerationOutcome.cs" />
+    <Compile Include="Assets\Scripts\Party\PartyManager.cs" />
+    <Compile Include="Assets\Scripts\Party\PartyMember.cs" />
+    <Compile Include="Assets\Scripts\Party\PartySOs\PartyMemberSO.cs" />
+    <Compile Include="Assets\Scripts\Party\PartyStrategyUI.cs" />
+    <Compile Include="Assets\Scripts\Party\RecruitGeneration.cs" />
+    <Compile Include="Assets\Scripts\Party\UIInteraction.cs" />
+    <Compile Include="Assets\Scripts\Party\UIPieceAction.cs" />
+    <Compile Include="Assets\Scripts\Party\UIReposition.cs" />
+    <Compile Include="Assets\Scripts\Scene\SceneController.cs" />
+    <Compile Include="Assets\Scripts\Scene\SceneTriggerAssign.cs" />
+    <Compile Include="Assets\Scripts\Scene\StrategySceneTrigger.cs" />
+    <Compile Include="Assets\Scripts\Strategy\CharacterClassClass.cs" />
     <Compile Include="Assets\Scripts\Strategy\CharacterController.cs" />
+    <Compile Include="Assets\Scripts\Strategy\CoolDownManager.cs" />
     <Compile Include="Assets\Scripts\Strategy\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Strategy\Enemy\EnemySOs\EnemySOBody.cs" />
     <Compile Include="Assets\Scripts\Strategy\Environment\TileController.cs" />
@@ -72,7 +90,15 @@
     <Compile Include="Assets\Scripts\Strategy\Player\Controls\ActiveCharacterSelect.cs" />
     <Compile Include="Assets\Scripts\Strategy\Player\Controls\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Strategy\Player\Controls\PlayerCharacter.cs" />
+    <Compile Include="Assets\Scripts\Strategy\Player\PlayerClasses\PaladinClass.cs" />
+    <Compile Include="Assets\Scripts\Strategy\Player\UI Display\HandPanel.cs" />
+    <Compile Include="Assets\Scripts\Strategy\Player\UI Display\MouseOverToolTip.cs" />
+    <Compile Include="Assets\Scripts\Strategy\Player\UI Display\PanelSlotClaim.cs" />
+    <Compile Include="Assets\Scripts\Strategy\Player\UI Display\ResourceDisplay.cs" />
+    <Compile Include="Assets\Scripts\Strategy\Player\UI Display\SpellDescription.cs" />
+    <Compile Include="Assets\Scripts\Strategy\PregameFunction.cs" />
     <Compile Include="Assets\Scripts\Strategy\TurnManager.cs" />
+    <Compile Include="Assets\Scripts\Strategy\VictoryScript.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/wildz/Documents/GitHub/HeroesOfTsolonAdv/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

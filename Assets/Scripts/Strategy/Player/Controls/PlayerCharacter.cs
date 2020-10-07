@@ -7,17 +7,58 @@ public class PlayerCharacter : CharacterController
 {
     public ClassSOBody SOInfo;
 
+    public Image[] slotPanel;
+    public Image[] panelChildren;
     public Button moveButton;
     public Button runButton;
     public Button endTurnButton;
 
     public float interestTime = 0f;
 
+    public bool hasClicked = false;
+    public bool hasEscaped = false;
+
+    public string spellOneDescription;
+    public string spellTwoDescription;
+    public string spellThreeDescription;
+    public string spellFourDescription;
+
     void Start()
     {
         currentState = TurnState.WAITING;
         maximumHealth = SOInfo.healthPoints;
         currentHealth = maximumHealth;
+        slotPanel = this.GetComponentsInChildren<Image>();
+
+        foreach(Image panel in slotPanel)
+        {
+            if(panel.gameObject.tag == "UIPartyPanel")
+            {
+                GameObject partyPanel = GameObject.FindGameObjectWithTag("PartySlot");
+
+                if(panel.GetComponentsInChildren<Image>().Length > 0)
+                {
+                    panelChildren = panel.GetComponentsInChildren<Image>();
+                }
+
+                foreach(Image child in panelChildren)
+                {
+                    if(child.tag == "PlayerHealth")
+                    {
+                        Image healthFound = child.GetComponent<Image>();
+                        Debug.Log(healthFound + "is healthImage");
+                        healthImage = healthFound;
+                    }
+
+                    if(child.tag == "PlayerActions")
+                    {
+                        actionPointImage = child.GetComponent<Image>();
+                    }
+                }
+
+                panel.transform.SetParent(partyPanel.transform);
+            }
+        }
 
         Init();
     }
@@ -31,18 +72,35 @@ public class PlayerCharacter : CharacterController
         else if(turnManager.enemyTurn)
         {
             myTurn = false;
+            hasClicked = false;
         }
 
-        if(gameObject.tag == "ActivePlayer")
+        if(moveButton == null)
+        {
+            GameObject moveButtonObject = GameObject.FindGameObjectWithTag("MoveButton");
+            GameObject runButtonObject = GameObject.FindGameObjectWithTag("RunButton");
+            GameObject endTurnButtonObject = GameObject.FindGameObjectWithTag("EndTurnButton");
+            moveButton = moveButtonObject.GetComponent<Button>();
+            runButton = runButtonObject.GetComponent<Button>();
+            endTurnButton = endTurnButtonObject.GetComponent<Button>();
+        }
+
+        if(tag == "ActivePlayer")
         {
             moveButton.onClick.AddListener(MoveButton);
             runButton.onClick.AddListener(RunButton);
             endTurnButton.onClick.AddListener(EndTurnButton);
             isActive = true;
         }
-        else if(gameObject.tag != "ActivePlayer")
+        else if(tag != "ActivePlayer" || currentActionPoints <= 0)
         {
             isActive = false;
+            moveButton.onClick.RemoveListener(MoveButton);
+            runButton.onClick.RemoveListener(RunButton);
+        }
+        else if(myTurn && GameObject.FindGameObjectsWithTag("ActivePlayer").Length < 1)
+        {
+            moveButton.enabled = false;
         }
 
         MouseOverInteractable();
@@ -80,6 +138,9 @@ public class PlayerCharacter : CharacterController
                 gameObject.tag = "Player";
             }
         }
+
+        actionPointImage.fillAmount = currentActionPoints / maximumActionPoints;
+        healthImage.fillAmount = currentHealth / maximumHealth;
     }
 
     void MoveSelected()
@@ -138,9 +199,9 @@ public class PlayerCharacter : CharacterController
         moveSelect = true;
         runSelect = false;
 
-        if(moveActionsThisTurn < 1)
+        if(this.moveActionsThisTurn < 1 && this.currentActionPoints > 0)
         {
-            currentState = TurnState.MOVING;
+            this.currentState = TurnState.MOVING;
         }
         else
         {
@@ -151,18 +212,27 @@ public class PlayerCharacter : CharacterController
 
     public void RunButton()
     {
-        runSelect = true;
-        moveSelect = false;
+        if (!runSelect && currentActionPoints > 0 && isActive)
+        {
+            runSelect = true;
+            moveSelect = false;
 
-        runRange -= fatigue;
-        currentState = TurnState.RUNNING;
+            if(fatigue > 0)
+            {
+                runRange = 6 - fatigue;
+            }
+
+            currentState = TurnState.RUNNING;
+        }
     }
 
     public void EndTurnButton()
     {
-        if(!isMoving)
+        if(!isMoving && !hasClicked)
         {
+            hasClicked = true;
             gameObject.tag = "Player";
+            BasicAttack();
             isActive = false;
             turnManager.playerTurn = false;
             turnManager.enemyTurn = true;

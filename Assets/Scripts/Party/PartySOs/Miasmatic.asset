@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a756c5e3bc5cae948be172616f895075, type: 3}
+  m_Name: Miasmatic
+  m_EditorClassIdentifier: 
+  memberClass: Miasmatic
+  classSO: {fileID: 11400000, guid: 78dc7a3a0607f4a4aad999c32dc78a19, type: 2}
+  memberLevel: 0
+  strategyPiece: {fileID: 1081488779363115600, guid: ff91f9f4c4e615944a27b14fb512e615,
+    type: 3}
+  partyMenuPiece: {fileID: 0}
+  overworldPiece: {fileID: 0}

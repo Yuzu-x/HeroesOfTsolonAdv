@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56f74845e5f93d742931b741d5610d1d, type: 3}
   m_Name: Paladin
   m_EditorClassIdentifier: 
-  characterGamePiece: {fileID: 0}
+  characterGamePiece: {fileID: 1081488779363115600, guid: 7e69ea6e8c1ba1b44b76eba430c8634d,
+    type: 3}
   healthPoints: 390
   moveRange: 6
   actionPoints: 3
