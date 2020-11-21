@@ -7,6 +7,9 @@ public class PaladinClass : PlayerCharacter
 {
     public PlayerCharacter playerCharacter;
     public CharacterClassClass cooldownManager;
+    public CharacterLevelling levelling;
+    public FocusInteraction focusInteraction;
+    public bool inBattle = true;
     GameObject[] checkingDealt;
     string[] allyTags = { "Player", "ActivePlayer" };
 
@@ -21,6 +24,39 @@ public class PaladinClass : PlayerCharacter
 
     public float perfectTauntRadius = 6;
     public float perfStartTurn;
+
+    public string treeNameOne = "Patience";
+    public string treeNameTwo = "Tolerance";
+    public string treeNameThree = "Righteous";
+
+    public bool transferStress = false;
+    public bool innerFocus = false;
+    public bool burnBright = false;
+    public bool masterStrategist = false;
+    public bool nirvana = false;
+    public bool steadfast = false;
+    public bool bringThemToJustice = false;
+    public bool fortitude = false;
+    public bool transcendence = false;
+    public bool lightSpeed = false;
+    public bool absolution = false;
+    public bool shiningCompassion = false;
+    public bool rollingWith = false;
+    public bool pacify = false;
+    public bool seraphicAcuity = false;
+    public bool quellingGrip = false;
+    public bool benevolence = false;
+    public bool divineIntervention = false;
+    public bool ultimateRequisition = false;
+    public bool burningShackles = false;
+    public bool lightForged = false;
+    public bool radiantPrison = false;
+    public bool searingPalm = false;
+    public bool zealousCharge = false;
+    public bool divineOnslaught = false;
+    public bool stoicism = false;
+    public bool grandInterrogation = false;
+    public bool impossibleSword = false;
 
     void Start()
     {
@@ -37,6 +73,19 @@ public class PaladinClass : PlayerCharacter
 
     void Update()
     {
+
+        if (!inBattle)
+        { 
+        if (focusInteraction.levelling != null)
+        {
+            levelling = focusInteraction.levelling;
+        }
+        else
+        {
+            levelling = null;
+        }
+    }
+
         if (takeDamage && !isActive)
         {
             ExceptionalForgiveness();
@@ -56,6 +105,33 @@ public class PaladinClass : PlayerCharacter
             humblingButton.onClick.AddListener(HumblingShout);
             Text humblButtonText = humblingButton.GetComponentInChildren<Text>();
             humblButtonText.text = "Humbling Shout";
+        }
+
+        if (levelling != null)
+        {
+            CheckFocus();
+        }
+    }
+
+    void CheckFocus()
+    {
+        if(levelling.focusAdopted.Contains(CharacterLevelling.CharacterSpells.T1S1))
+        {
+            transferStress = true;
+        }
+
+        if(levelling.focusAdopted.Contains(CharacterLevelling.CharacterSpells.T1S2))
+        {
+            innerFocus = true;
+        }
+
+        if(levelling.focusAdopted.Contains(CharacterLevelling.CharacterSpells.T1S3O1))
+        {
+            burnBright = true;
+        }
+        else if(levelling.focusAdopted.Contains(CharacterLevelling.CharacterSpells.T1S3O2))
+        {
+            nirvana = true;
         }
     }
 

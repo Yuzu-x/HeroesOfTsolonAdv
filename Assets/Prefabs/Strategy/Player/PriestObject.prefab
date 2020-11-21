@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081488779363115600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.405, y: -2.522, z: -6.076}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 1081488779469912894}
@@ -112,6 +112,7 @@ MonoBehaviour:
   myTurn: 0
   turnManager: {fileID: 0}
   selectableTiles: []
+  tiles: []
   initialTile: {fileID: 0}
   isMoving: 0
   isActive: 0
@@ -147,6 +148,8 @@ MonoBehaviour:
   isGuarding: 0
   guardMultiplier: 0
   occupiedTile: {fileID: 0}
+  characterProfile: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  characterProfileExpanded: {fileID: 0}
   currentState: 0
   SOInfo: {fileID: 11400000, guid: a29c8ccaba3178b4fb8a1e7bd52fc63f, type: 2}
   slotPanel: []
@@ -156,6 +159,11 @@ MonoBehaviour:
   endTurnButton: {fileID: 0}
   interestTime: 0
   hasClicked: 0
+  hasEscaped: 0
+  spellOneDescription: 
+  spellTwoDescription: 
+  spellThreeDescription: 
+  spellFourDescription: 
 --- !u!114 &1081488779363115593
 MonoBehaviour:
   m_ObjectHideFlags: 0

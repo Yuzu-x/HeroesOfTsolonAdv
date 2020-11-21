@@ -19,5 +19,20 @@ public class PartyMember : MonoBehaviour
     public PartyMemberSO rangerSO;
     public PartyMemberSO tamerSO;
 
+    public PaladinClass paladin;
+
     public bool isHired = false;
+
+    private void Update()
+    {
+        if(this.gameObject.transform.parent.tag == "PartySlot")
+        {
+            isHired = true;
+        }
+        else
+        {
+            isHired = false;
+        }
+    }
+
 }

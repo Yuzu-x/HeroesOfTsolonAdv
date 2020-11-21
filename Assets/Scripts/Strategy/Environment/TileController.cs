@@ -8,9 +8,14 @@ public class TileController : MonoBehaviour
     public bool targetTile = false;
     public bool selectableTile = false;
     public bool walkableTile = true;
+    public bool standableTile = true;
     public bool playerSpawnTile = false;
+    public bool aimedAtTargetTile = false;
+    public bool aimLockedTile = false;
+    public bool affectedTile = false;
 
     public List<TileController> adjacentTileList = new List<TileController>();
+    public List<TileController> adjacentTileSpellList = new List<TileController>();
 
     public bool visitedTile = false;
     public TileController parentTile = null;
@@ -34,6 +39,18 @@ public class TileController : MonoBehaviour
         {
             GetComponent<Renderer>().material.color = Color.magenta;
         }
+        else if(aimedAtTargetTile)
+        {
+            GetComponent<Renderer>().material.color = Color.cyan;
+        }
+        else if(aimLockedTile)
+        {
+            GetComponent<Renderer>().material.color = Color.blue;
+        }
+        else if(affectedTile)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
         else
         {
             GetComponent<Renderer>().material.color = Color.white;
@@ -43,10 +60,13 @@ public class TileController : MonoBehaviour
     public void Reset()
     {
         adjacentTileList.Clear();
+        adjacentTileSpellList.Clear();
         currentTile = false;
         targetTile = false;
         selectableTile = false;
         visitedTile = false;
+        aimLockedTile = false;
+        affectedTile = false;
         parentTile = null;
         distance = 0;
 
@@ -79,6 +99,11 @@ public class TileController : MonoBehaviour
                 {
                     adjacentTileList.Add(tile);
                 }
+            }
+
+            if(tile != null && tile.standableTile)
+            {
+                adjacentTileSpellList.Add(tile);
             }
         }
     }

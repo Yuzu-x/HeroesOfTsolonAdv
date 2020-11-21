@@ -5,12 +5,18 @@ using UnityEngine.UI;
 
 public class CharacterLevelling : MonoBehaviour
 {
+    public PartyMember focusingCharacter;
+    public PartyMemberSO focusingCharacterSO;
     public VictoryScript victoryScript;
     public float totalVictories = 0;
     public bool addedVictory = false;
     public float availableFocusPoints;
     public float totalFocusPoints;
     public float earnedFocusPoints;
+
+    public Text treeOneName;
+    public Text treeTwoName;
+    public Text treeThreeName;
 
     public bool T1S3Left;
     public bool T1S3LeftLocked;
@@ -63,12 +69,28 @@ public class CharacterLevelling : MonoBehaviour
 
     void Update()
     {
-        if(victoryScript.victoryAchieved)
+        if(victoryScript = null)
+        {
+            GameObject results = GameObject.FindGameObjectWithTag("ResultsManager");
+            victoryScript = results.GetComponent<VictoryScript>();
+        }
+
+        if(victoryScript != null && victoryScript.victoryAchieved)
         {
             totalVictories += 1;
             availableFocusPoints += earnedFocusPoints;
             totalFocusPoints += earnedFocusPoints;
             addedVictory = true;
+        }
+
+        if(focusingCharacter != null)
+        {
+            focusingCharacterSO = focusingCharacter.memberSO;
+            AssignNames();
+        }
+        else
+        {
+            focusingCharacterSO = null;
         }
     }
 
@@ -227,6 +249,17 @@ public class CharacterLevelling : MonoBehaviour
                 availableFocusPoints -= 1;
                 FocusSelected(focusSelect);
             }
+        }
+    }
+
+    void AssignNames()
+    {
+        if(focusingCharacter.GetComponent<PaladinClass>().enabled)
+        {
+            PaladinClass paladin = focusingCharacter.GetComponent<PaladinClass>();
+            treeOneName.text = paladin.treeNameOne;
+            treeTwoName.text = paladin.treeNameTwo;
+            treeThreeName.text = paladin.treeNameThree;
         }
     }
 }

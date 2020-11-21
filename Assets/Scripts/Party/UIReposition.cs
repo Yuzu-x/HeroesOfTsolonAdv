@@ -20,6 +20,7 @@ public class UIReposition : MonoBehaviour
     public List<GameObject> partyObjects = new List<GameObject>();
     public Image recruitPanel;
     public Transform recruitRosterPos;
+    public GraphicRaycaster imageRaycaster;
 
     public UIPieceAction actionable;
 
@@ -27,6 +28,7 @@ public class UIReposition : MonoBehaviour
     {
         availableRecruits = GameObject.FindGameObjectsWithTag("RecruitTab");
         recruitRosterPos = recruitPanel.transform;
+        imageRaycaster = GetComponent<GraphicRaycaster>();
 
         partySlots = GameObject.FindGameObjectsWithTag("PartySlot");
 
@@ -42,7 +44,8 @@ public class UIReposition : MonoBehaviour
         PointerEventData mouse = new PointerEventData(EventSystem.current);
         mouse.position = Input.mousePosition;
         List<RaycastResult> findPartySlots = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(mouse, findPartySlots);
+        imageRaycaster.Raycast(mouse, findPartySlots);
+        //EventSystem.current.RaycastAll(mouse, findPartySlots);
         int count = findPartySlots.Count;
 
         foreach(GameObject recruit in availableRecruits)
@@ -68,9 +71,12 @@ public class UIReposition : MonoBehaviour
 
             if(actionable.heldPiece)
             {
+                Image recruitImage = actionable.heldPiece.GetComponent<Image>();
+                recruitImage.raycastTarget = false;
+
                 foreach(Transform emptySlot in partyTransforms)
                 {
-                    if(Input.GetMouseButtonUp(0) && overParty)
+                    if(Input.GetMouseButtonUp(0))
                     {
                         if (partyObjects.Count < 5)
                         {

@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081488779363115600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.405, y: -2.522, z: -6.076}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 1081488779469912894}
@@ -114,6 +114,7 @@ MonoBehaviour:
   myTurn: 0
   turnManager: {fileID: 0}
   selectableTiles: []
+  tiles: []
   initialTile: {fileID: 0}
   isMoving: 0
   isActive: 0
@@ -149,6 +150,8 @@ MonoBehaviour:
   isGuarding: 0
   guardMultiplier: 0
   occupiedTile: {fileID: 0}
+  characterProfile: {fileID: 21300000, guid: 291af47ace672c447a0a6faf63ed438b, type: 3}
+  characterProfileExpanded: {fileID: 0}
   currentState: 0
   SOInfo: {fileID: 11400000, guid: dd8e375b23efcbc46a51dfcec8a5cad5, type: 2}
   slotPanel: []
@@ -158,6 +161,11 @@ MonoBehaviour:
   endTurnButton: {fileID: 0}
   interestTime: 0
   hasClicked: 0
+  hasEscaped: 0
+  spellOneDescription: 
+  spellTwoDescription: 
+  spellThreeDescription: 
+  spellFourDescription: 
 --- !u!114 &1081488779363115606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +181,7 @@ MonoBehaviour:
   myTurn: 0
   turnManager: {fileID: 0}
   selectableTiles: []
+  tiles: []
   initialTile: {fileID: 0}
   isMoving: 0
   isActive: 0
@@ -208,6 +217,8 @@ MonoBehaviour:
   isGuarding: 0
   guardMultiplier: 0
   occupiedTile: {fileID: 0}
+  characterProfile: {fileID: 0}
+  characterProfileExpanded: {fileID: 0}
   currentState: 0
   SOInfo: {fileID: 11400000, guid: dd8e375b23efcbc46a51dfcec8a5cad5, type: 2}
   slotPanel: []
@@ -217,14 +228,57 @@ MonoBehaviour:
   endTurnButton: {fileID: 0}
   interestTime: 0
   hasClicked: 0
+  hasEscaped: 0
+  spellOneDescription: 
+  spellTwoDescription: 
+  spellThreeDescription: 
+  spellFourDescription: 
   playerCharacter: {fileID: 1081488779363115607}
   cooldownManager: {fileID: 1081488779363115593}
+  levelling: {fileID: 0}
+  focusInteraction: {fileID: 0}
+  inBattle: 1
   blazingButton: {fileID: 0}
+  blazingDescription: 
   flashButton: {fileID: 0}
+  flashDescription: 
   perfectButton: {fileID: 0}
+  perfectDescription: 
   humblingButton: {fileID: 0}
+  humblingDescription: 
   perfectTauntRadius: 6
   perfStartTurn: 0
+  treeNameOne: Patience
+  treeNameTwo: Tolerance
+  treeNameThree: Righteous
+  transferStress: 0
+  innerFocus: 0
+  burnBright: 0
+  masterStrategist: 0
+  nirvana: 0
+  steadfast: 0
+  bringThemToJustice: 0
+  fortitude: 0
+  transcendence: 0
+  lightSpeed: 0
+  absolution: 0
+  shiningCompassion: 0
+  rollingWith: 0
+  pacify: 0
+  seraphicAcuity: 0
+  quellingGrip: 0
+  benevolence: 0
+  divineIntervention: 0
+  ultimateRequisition: 0
+  burningShackles: 0
+  lightForged: 0
+  radiantPrison: 0
+  searingPalm: 0
+  zealousCharge: 0
+  divineOnslaught: 0
+  stoicism: 0
+  grandInterrogation: 0
+  impossibleSword: 0
 --- !u!114 &1081488779363115593
 MonoBehaviour:
   m_ObjectHideFlags: 0

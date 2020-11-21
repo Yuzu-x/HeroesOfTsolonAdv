@@ -40,6 +40,7 @@ public class PartyManager : MonoBehaviour
                     {
                         case GenerationOutcome.RecruitClass.PALADIN:
                             playerPanelMember.memberSO = playerPanelMember.paladinSO;
+                            playerPanelMember.paladin.enabled = true;
                             members.Add(playerPanel);
                             break;
 

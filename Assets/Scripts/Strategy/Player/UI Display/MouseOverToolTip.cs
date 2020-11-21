@@ -34,7 +34,6 @@ public class MouseOverToolTip : MonoBehaviour
             foreach (RaycastResult pieceFound in checkUIPiece)
             {
                 interestTime += 1 * Time.deltaTime;
-                Debug.Log(pieceFound);
 
                 if (interestTime >= 3 && !hasLoaded)
                 {

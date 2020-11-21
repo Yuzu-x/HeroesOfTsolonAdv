@@ -27,7 +27,7 @@ public class CharacterController : MonoBehaviour
     //Travel vectors
     Vector3 velocity = new Vector3();
     Vector3 heading = new Vector3();
-
+     
     //Accessible tile
     float halfHeight = 0;
 
@@ -54,6 +54,7 @@ public class CharacterController : MonoBehaviour
     public float currentHealth;
     public bool takeDamage = false;
     public float receivedDamage;
+    public bool stopTakingDamage = false;
     public bool dealtDamage = false;
     public Image healthImage;
     public float fatigue = 0;
@@ -67,6 +68,9 @@ public class CharacterController : MonoBehaviour
     public float guardMultiplier;
 
     public TileController occupiedTile;
+
+    public Sprite characterProfile;
+    public Sprite characterProfileExpanded;
 
     public enum TurnState
     {
@@ -85,13 +89,6 @@ public class CharacterController : MonoBehaviour
         tiles = GameObject.FindGameObjectsWithTag("Tile");
 
         halfHeight = GetComponent<Collider>().bounds.extents.y;
-        if(turnManager ==  null)
-        {
-            GameObject lookForTurnManager = GameObject.FindGameObjectWithTag("GameController");
-            turnManager = lookForTurnManager.GetComponent<TurnManager>();
-        }
-
-        turnManager.AddUnit(this);
     }
 
     void Update()
@@ -99,7 +96,20 @@ public class CharacterController : MonoBehaviour
         actionPointImage.fillAmount = currentActionPoints / maximumActionPoints;
         healthImage.fillAmount = currentHealth / maximumHealth;
 
-        if(currentHealth > maximumHealth)
+        if (turnManager == null)
+        {
+            GameObject lookForTurnManager = GameObject.FindGameObjectWithTag("GameController");
+            turnManager = lookForTurnManager.GetComponent<TurnManager>();
+
+            if (turnManager.currentlyTurnZero)
+            {
+                Debug.Log("Adding this to unit turnManager");
+                turnManager.AddUnit(this.gameObject);
+            }
+        }
+
+
+        if (currentHealth > maximumHealth)
         {
             currentHealth = maximumHealth;
         }
@@ -123,7 +133,7 @@ public class CharacterController : MonoBehaviour
         return tile;
     }
 
-    public void ComputeAdjacencyLists(float jumpHeight, TileController target)
+    protected void ComputeAdjacencyLists(float jumpHeight, TileController target)
     {
         foreach(GameObject tile in tiles)
         {
@@ -446,7 +456,9 @@ public class CharacterController : MonoBehaviour
     {
         myTurn = true;
 
-        if(fatigue > 0)
+        turnManager.turnCounted = false;
+
+        if (fatigue > 0)
         {
             if (fatigueCheck)
             {
@@ -489,40 +501,45 @@ public class CharacterController : MonoBehaviour
                         if (gameObject.tag == "Player")
                         {
                             EnemyController enemyCont = checkOccupier.collider.GetComponent<EnemyController>();
-                            enemyCont.TakeDamage(basicDamage);
+                            if (enemyCont != null)
+                            {
+                                enemyCont.TakeDamage(basicDamage);
+                            }
                         }
                         else if(gameObject.tag == "Enemy")
                         {
                             PlayerCharacter playerCont = checkOccupier.collider.GetComponent<PlayerCharacter>();
-                            playerCont.TakeDamage(basicDamage);
+                            if (playerCont != null)
+                            {
+                                playerCont.TakeDamage(basicDamage);
+                            }
                         }
                     }
                 }
             }
         }
-        else
-        {
-            Debug.Log("The raycast missed" + this.gameObject);
-        }
     }
 
     public void TakeDamage(float damage)
     {
-        takeDamage = true;
-        receivedDamage = damage;
-
-        if (isGuarding)
+        if (!stopTakingDamage)
         {
-            receivedDamage *= guardMultiplier;
-        }
-        currentHealth -= receivedDamage;
-        
-        if(currentHealth <= 0)
-        {
-            currentState = TurnState.DEAD;
-        }
+            takeDamage = true;
+            receivedDamage = damage;
 
-        takeDamage = false;
+            if (isGuarding)
+            {
+                receivedDamage *= guardMultiplier;
+            }
+            currentHealth -= receivedDamage;
+
+            if (currentHealth <= 0)
+            {
+                currentState = TurnState.DEAD;
+            }
+
+            takeDamage = false;
+        }
     }
 
     public void SpendActionPoints(float pointsSpent)
@@ -558,6 +575,9 @@ public class CharacterController : MonoBehaviour
 
     public void Healed(float healthRestored)
     {
-        currentHealth += healthRestored;
+        if (!stopTakingDamage)
+        {
+            currentHealth += healthRestored;
+        }
     }
 }

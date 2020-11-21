@@ -65,7 +65,7 @@ public class PregameFunction : MonoBehaviour
             {
                 if(checkSpawnSearch.collider.tag == "Tile")
                 {
-                    TileController spawnTile = checkSpawnSearch.collider.GetComponent<TileController>();
+                   TileController spawnTile = checkSpawnSearch.collider.GetComponent<TileController>();
                    heldPartyMember = pieceAction.heldPiece.GetComponent<PartyMember>();
 
                     if (pieceAction.heldPiece != null)
@@ -78,7 +78,6 @@ public class PregameFunction : MonoBehaviour
                     if(spawnTile.playerSpawnTile)
                     {
                         spawnTile.GetComponent<Renderer>().material.color = Color.cyan;
-                        Debug.Log("Could spawn here");
 
                         if(Input.GetMouseButtonUp(0))
                         {
@@ -90,6 +89,7 @@ public class PregameFunction : MonoBehaviour
                                     gamePiece1.transform.SetParent(spawnTile.transform);
                                     gamePiece1.transform.position = new Vector3(spawnTile.transform.position.x, spawnTile.transform.position.y + 1, spawnTile.transform.position.z);
                                     gamePiece1.transform.rotation = spawnTile.transform.rotation;
+                                gamePiece1.transform.SetParent(null);
                                 pieceOneLoaded = true;
                                 }
                                 else if(!pieceTwoLoaded && gamePiece1 != null && gamePiece2 == null)
@@ -98,6 +98,7 @@ public class PregameFunction : MonoBehaviour
                                     gamePiece2.transform.SetParent(spawnTile.transform);
                                     gamePiece2.transform.position = new Vector3(spawnTile.transform.position.x, spawnTile.transform.position.y + 1, spawnTile.transform.position.z);
                                     gamePiece2.transform.rotation = spawnTile.transform.rotation;
+                                gamePiece2.transform.SetParent(null);
                                 pieceTwoLoaded = true;
                                 }
                                 else if(!pieceThreeLoaded && gamePiece1 != null && gamePiece2 != null && gamePiece3 == null)
@@ -106,6 +107,7 @@ public class PregameFunction : MonoBehaviour
                                     gamePiece3.transform.SetParent(spawnTile.transform);
                                     gamePiece3.transform.position = new Vector3(spawnTile.transform.position.x, spawnTile.transform.position.y + 1, spawnTile.transform.position.z);
                                     gamePiece3.transform.rotation = spawnTile.transform.rotation;
+                                gamePiece3.transform.SetParent(null);
                                 pieceThreeLoaded = true;
                                 }
                                 else if(!pieceFourLoaded && gamePiece1 != null && gamePiece2 != null && gamePiece3 != null && gamePiece4 == null)
@@ -114,6 +116,7 @@ public class PregameFunction : MonoBehaviour
                                     gamePiece4.transform.SetParent(spawnTile.transform);
                                     gamePiece4.transform.position = new Vector3(spawnTile.transform.position.x, spawnTile.transform.position.y + 1, spawnTile.transform.position.z);
                                     gamePiece4.transform.rotation = spawnTile.transform.rotation;
+                                gamePiece4.transform.SetParent(null);
                                 pieceFourLoaded = true;
                                 }
                                 else if(!pieceFiveLoaded && gamePiece1 != null && gamePiece2 != null && gamePiece3 != null && gamePiece4 != null && gamePiece5 == null)
@@ -122,10 +125,12 @@ public class PregameFunction : MonoBehaviour
                                     gamePiece5.transform.SetParent(spawnTile.transform);
                                     gamePiece5.transform.position = new Vector3(spawnTile.transform.position.x, spawnTile.transform.position.y + 1, spawnTile.transform.position.z);
                                     gamePiece5.transform.rotation = spawnTile.transform.rotation;
+                                gamePiece5.transform.SetParent(null);
                                 pieceFiveLoaded = true;
                             }
 
                             characterHandImage.gameObject.SetActive(false);
+                            spawnTile.playerSpawnTile = false;
                         }
                     }
                 }

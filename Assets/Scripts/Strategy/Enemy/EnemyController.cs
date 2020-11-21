@@ -13,12 +13,27 @@ public class EnemyController : CharacterController
         currentState = TurnState.WAITING;
         maximumHealth = enemyScriptable.healthPoints;
         currentHealth = maximumHealth;
+        moveRange = enemyScriptable.moveRange;
+        maximumActionPoints = enemyScriptable.actionPoints;
+        currentActionPoints = maximumActionPoints;
+        basicDamage = enemyScriptable.basicAttackDamage;
         Init();
     }
 
     void Update()
     {
-        switch(currentState)
+        if (turnManager == null)
+        {
+            GameObject lookForTurnManager = GameObject.FindGameObjectWithTag("GameController");
+            turnManager = lookForTurnManager.GetComponent<TurnManager>();
+
+            if (turnManager.currentlyTurnZero)
+            {
+                turnManager.AddUnit(this.gameObject);
+            }
+        }
+
+        switch (currentState)
         {
             case (TurnState.MOVING):
                 EnemyMovement();
@@ -29,7 +44,10 @@ public class EnemyController : CharacterController
                 break;
 
             case (TurnState.WAITING):
-                ShouldEndTurn();
+                if (myTurn)
+                {
+                    ShouldEndTurn();
+                }
                 break;
 
             case (TurnState.CASTING):
@@ -137,6 +155,7 @@ public class EnemyController : CharacterController
             turnManager.enemyTurn = false;
             turnManager.playerTurn = true;
             target = null;
+            moveActionsThisTurn = 0;
         }
 
         if(moveActionsThisTurn > 0)
@@ -147,6 +166,7 @@ public class EnemyController : CharacterController
             turnManager.enemyTurn = false;
             turnManager.playerTurn = true;
             target = null;
+            moveActionsThisTurn = 0;
         }
     }
 }

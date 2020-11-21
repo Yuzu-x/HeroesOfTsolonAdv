@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerCharacter : CharacterController
 {
     public ClassSOBody SOInfo;
+    public SpellFunction spellFunction;
 
     public Image[] slotPanel;
     public Image[] panelChildren;
@@ -28,6 +29,8 @@ public class PlayerCharacter : CharacterController
         currentState = TurnState.WAITING;
         maximumHealth = SOInfo.healthPoints;
         currentHealth = maximumHealth;
+        restoredActionPoints = maximumActionPoints;
+        currentActionPoints = maximumActionPoints;
         slotPanel = this.GetComponentsInChildren<Image>();
 
         foreach(Image panel in slotPanel)
@@ -65,7 +68,18 @@ public class PlayerCharacter : CharacterController
 
     void Update()
     {
-        if(turnManager.playerTurn)
+        if (turnManager == null)
+        {
+            GameObject lookForTurnManager = GameObject.FindGameObjectWithTag("GameController");
+            turnManager = lookForTurnManager.GetComponent<TurnManager>();
+
+            if (turnManager.currentlyTurnZero)
+            {
+                turnManager.AddUnit(this.gameObject);
+            }
+        }
+
+        if (turnManager.playerTurn)
         {
             myTurn = true;
         }
@@ -118,6 +132,8 @@ public class PlayerCharacter : CharacterController
                 break;
 
             case (TurnState.CASTING):
+                spellFunction.CastSelect();
+
                 break;
 
             case (TurnState.LONGCASTING):
@@ -141,6 +157,14 @@ public class PlayerCharacter : CharacterController
 
         actionPointImage.fillAmount = currentActionPoints / maximumActionPoints;
         healthImage.fillAmount = currentHealth / maximumHealth;
+
+        if(spellFunction == null)
+        {
+            GameObject spellPanel = GameObject.FindGameObjectWithTag("SpellPanel");
+            spellFunction = spellPanel.GetComponent<SpellFunction>();
+        }
+
+        InitCheck();
     }
 
     void MoveSelected()
@@ -169,7 +193,7 @@ public class PlayerCharacter : CharacterController
 
                 if(tileHit.selectableTile)
                 {
-                    tileHit.GetComponent<Renderer>().material.color = Color.red;
+                    tileHit.GetComponent<Renderer>().material.color = Color.yellow;
                 }
             }
         }
@@ -226,7 +250,7 @@ public class PlayerCharacter : CharacterController
         }
     }
 
-    public void EndTurnButton()
+    protected void EndTurnButton()
     {
         if(!isMoving && !hasClicked)
         {
@@ -236,7 +260,11 @@ public class PlayerCharacter : CharacterController
             isActive = false;
             turnManager.playerTurn = false;
             turnManager.enemyTurn = true;
-            turnManager.turnCount += 1f;
+            if(!turnManager.turnCounted)
+            {
+                turnManager.turnCount += 1f;
+                turnManager.turnCounted = true;
+            }
             moveActionsThisTurn = 0f;
             turnManager.FinishTurn();
         }
@@ -251,5 +279,10 @@ public class PlayerCharacter : CharacterController
         {
 
         }
+    }
+
+    public void InitCheck()
+    {
+        Init();
     }
 }

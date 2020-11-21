@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActiveCharacterSelect : MonoBehaviour
 {
     public GameObject[] playerParty;
+    public TurnManager turnManager;
 
     void Start()
     {
@@ -13,6 +14,11 @@ public class ActiveCharacterSelect : MonoBehaviour
 
     void Update()
     {
+        if (turnManager.playerTurn)
+        {
+            playerParty = GameObject.FindGameObjectsWithTag("Player");
+        }
+    
         if(Input.GetMouseButtonUp(0))
         {
             Ray characterSelect = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -29,7 +35,11 @@ public class ActiveCharacterSelect : MonoBehaviour
                             activePlayer.tag = "Player";
                         }
                     }
-                    selectHit.collider.tag = "ActivePlayer";
+
+                    if (selectHit.collider.tag != "ActivePlayer")
+                    {
+                        selectHit.collider.tag = "ActivePlayer";
+                    }
                 }
             }
         }
